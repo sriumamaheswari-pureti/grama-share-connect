@@ -5,10 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export const Navbar = () => {
+interface NavbarProps {
+  isAuthenticated: boolean;
+}
+
+export const Navbar = ({ isAuthenticated }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const isAuthenticated = false; // This would come from your auth context
 
   const navItems = [
     { href: "/", label: "Home" },
@@ -60,18 +63,9 @@ export const Navbar = () => {
                 </Button>
               </>
             ) : (
-              <>
-                <Link to="/login">
-                  <Button variant="ghost" size="sm">
-                    Login
-                  </Button>
-                </Link>
-                <Link to="/signup">
-                  <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                    Sign Up
-                  </Button>
-                </Link>
-              </>
+              <div className="text-sm text-gray-600">
+                Browsing as Guest
+              </div>
             )}
           </div>
 
@@ -118,18 +112,9 @@ export const Navbar = () => {
                   </Button>
                 </>
               ) : (
-                <>
-                  <Link to="/login" onClick={() => setIsOpen(false)}>
-                    <Button variant="ghost" size="sm" className="w-full">
-                      Login
-                    </Button>
-                  </Link>
-                  <Link to="/signup" onClick={() => setIsOpen(false)}>
-                    <Button size="sm" className="w-full bg-gradient-to-r from-blue-600 to-purple-600">
-                      Sign Up
-                    </Button>
-                  </Link>
-                </>
+                <div className="text-sm text-gray-600 px-3">
+                  Browsing as Guest
+                </div>
               )}
             </div>
           </div>

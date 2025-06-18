@@ -6,10 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 
-const Signup = () => {
+interface SignupProps {
+  onSignup: () => void;
+}
+
+const Signup = ({ onSignup }: SignupProps) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -55,8 +58,9 @@ const Signup = () => {
       setIsLoading(false);
       toast({
         title: "Account Created Successfully",
-        description: "Welcome to Grama Rental! Please check your email to verify your account.",
+        description: "Welcome to Grama Rental!",
       });
+      onSignup();
     }, 1000);
   };
 
@@ -64,6 +68,12 @@ const Signup = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center space-y-2">
+          <Link to="/" className="inline-flex items-center space-x-2 mb-4">
+            <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm">GR</span>
+            </div>
+            <span className="text-xl font-bold text-gray-900">Grama Rental</span>
+          </Link>
           <h1 className="text-3xl font-bold text-gray-900">Join Grama Rental</h1>
           <p className="text-gray-600">Create your account and start sharing</p>
         </div>
@@ -178,8 +188,6 @@ const Signup = () => {
               </Button>
             </form>
 
-            <Separator />
-
             <div className="text-center text-sm text-gray-600">
               Already have an account?{" "}
               <Link to="/login" className="text-blue-600 hover:underline font-medium">
@@ -188,6 +196,12 @@ const Signup = () => {
             </div>
           </CardContent>
         </Card>
+
+        <div className="text-center">
+          <Link to="/" className="text-sm text-gray-500 hover:underline">
+            ← Back to home
+          </Link>
+        </div>
       </div>
     </div>
   );

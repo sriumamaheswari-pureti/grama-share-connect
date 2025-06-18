@@ -8,7 +8,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 
-const Login = () => {
+interface LoginProps {
+  onLogin: () => void;
+}
+
+const Login = ({ onLogin }: LoginProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -25,22 +29,22 @@ const Login = () => {
         title: "Login Successful",
         description: "Welcome back to Grama Rental!",
       });
+      onLogin();
     }, 1000);
-  };
-
-  const handleGuestContinue = () => {
-    toast({
-      title: "Continuing as Guest",
-      description: "You can browse items but won't be able to rent or list items.",
-    });
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center space-y-2">
+          <Link to="/" className="inline-flex items-center space-x-2 mb-4">
+            <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm">GR</span>
+            </div>
+            <span className="text-xl font-bold text-gray-900">Grama Rental</span>
+          </Link>
           <h1 className="text-3xl font-bold text-gray-900">Welcome Back</h1>
-          <p className="text-gray-600">Sign in to your Grama Rental account</p>
+          <p className="text-gray-600">Sign in to your account</p>
         </div>
 
         <Card>
@@ -86,20 +90,10 @@ const Login = () => {
             </form>
 
             <div className="text-center">
-              <Link to="/forgot-password" className="text-sm text-blue-600 hover:underline">
+              <Link to="#" className="text-sm text-blue-600 hover:underline">
                 Forgot your password?
               </Link>
             </div>
-
-            <Separator />
-
-            <Button 
-              variant="outline" 
-              className="w-full"
-              onClick={handleGuestContinue}
-            >
-              Continue as Guest
-            </Button>
 
             <div className="text-center text-sm text-gray-600">
               Don't have an account?{" "}
@@ -110,10 +104,10 @@ const Login = () => {
           </CardContent>
         </Card>
 
-        <div className="text-center text-xs text-gray-500">
-          By signing in, you agree to our{" "}
-          <a href="#" className="hover:underline">Terms of Service</a> and{" "}
-          <a href="#" className="hover:underline">Privacy Policy</a>
+        <div className="text-center">
+          <Link to="/" className="text-sm text-gray-500 hover:underline">
+            ← Back to home
+          </Link>
         </div>
       </div>
     </div>
