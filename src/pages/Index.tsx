@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ItemCard } from "@/components/ItemCard";
-import { CheckCircle, Users, Shield, DollarSign, Search, Plus } from "lucide-react";
+import { CheckCircle, Search, Plus } from "lucide-react";
 
 const Index = () => {
   // Mock data for featured items
@@ -41,42 +41,6 @@ const Index = () => {
       location: "Uptown",
       availability: "rented" as const,
       owner: "Mike R.",
-    },
-  ];
-
-  const features = [
-    {
-      icon: DollarSign,
-      title: "Affordable Access",
-      description: "Get access to items you need without the full purchase price. Save money and space.",
-    },
-    {
-      icon: Users,
-      title: "Local Connections",
-      description: "Connect with neighbors in your community. Build relationships while sharing resources.",
-    },
-    {
-      icon: Shield,
-      title: "Verified Users",
-      description: "All users are verified for safety and trust. Rent with confidence knowing you're protected.",
-    },
-  ];
-
-  const testimonials = [
-    {
-      name: "Emily Johnson",
-      text: "I saved hundreds of dollars renting a pressure washer instead of buying one. The owner was super helpful too!",
-      rating: 5,
-    },
-    {
-      name: "David Chen",
-      text: "Great platform for renting out my camera equipment when I'm not using it. Easy extra income!",
-      rating: 5,
-    },
-    {
-      name: "Maria Rodriguez",
-      text: "Found exactly what I needed for my DIY project. Much cheaper than buying and the quality was excellent.",
-      rating: 5,
     },
   ];
 
@@ -132,38 +96,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-              Why Choose Grama Rental?
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Join a community that believes in sharing resources and building connections.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300">
-                <CardHeader className="pb-4">
-                  <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <feature.icon className="w-8 h-8 text-white" />
-                  </div>
-                  <CardTitle className="text-xl">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base">
-                    {feature.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Featured Items Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -188,38 +120,6 @@ const Index = () => {
                 View All Rentals
               </Button>
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-              What Our Community Says
-            </h2>
-            <p className="text-xl text-gray-600">
-              Real experiences from real people in our community
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
-                <CardContent className="pt-6">
-                  <div className="space-y-4">
-                    <div className="flex space-x-1">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <span key={i} className="text-yellow-400 text-lg">★</span>
-                      ))}
-                    </div>
-                    <p className="text-gray-600 italic">"{testimonial.text}"</p>
-                    <p className="font-semibold text-gray-900">- {testimonial.name}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
           </div>
         </div>
       </section>
