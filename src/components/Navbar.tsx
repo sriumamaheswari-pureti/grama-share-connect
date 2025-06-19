@@ -2,8 +2,10 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User } from "lucide-react";
+import { Menu, X, User, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 
 interface NavbarProps {
   isAuthenticated: boolean;
@@ -12,12 +14,31 @@ interface NavbarProps {
 export const Navbar = ({ isAuthenticated }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { signOut } = useAuth();
+  const { toast } = useToast();
 
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/rentals", label: "Browse Rentals" },
     { href: "/list-item", label: "List an Item" },
   ];
+
+  const handleLogout = async () => {
+    const { error } = await signOut();
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to log out",
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Logged out",
+        description: "You have been successfully logged out.",
+      });
+    }
+    setIsOpen(false);
+  };
 
   return (
     <nav className="bg-white shadow-sm border-b">
@@ -58,14 +79,17 @@ export const Navbar = ({ isAuthenticated }: NavbarProps) => {
                     Dashboard
                   </Button>
                 </Link>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" onClick={handleLogout}>
+                  <LogOut className="w-4 h-4 mr-2" />
                   Logout
                 </Button>
               </>
             ) : (
-              <div className="text-sm text-gray-600">
-                Browsing as Guest
-              </div>
+              <Link to="/auth">
+                <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                  Sign In
+                </Button>
+              </Link>
             )}
           </div>
 
@@ -107,14 +131,17 @@ export const Navbar = ({ isAuthenticated }: NavbarProps) => {
                       Dashboard
                     </Button>
                   </Link>
-                  <Button variant="outline" size="sm" className="w-full">
+                  <Button variant="outline" size="sm" className="w-full" onClick={handleLogout}>
+                    <LogOut className="w-4 h-4 mr-2" />
                     Logout
                   </Button>
                 </>
               ) : (
-                <div className="text-sm text-gray-600 px-3">
-                  Browsing as Guest
-                </div>
+                <Link to="/auth" onClick={() => setIsOpen(false)}>
+                  <Button size="sm" className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                    Sign In
+                  </Button>
+                </Link>
               )}
             </div>
           </div>

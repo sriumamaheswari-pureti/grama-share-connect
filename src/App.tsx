@@ -1,5 +1,4 @@
 
-import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,10 +6,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { LandingPage } from "@/components/LandingPage";
+import { useAuth } from "@/hooks/useAuth";
 import Index from "./pages/Index";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import ListItem from "./pages/ListItem";
 import BrowseRentals from "./pages/BrowseRentals";
@@ -21,11 +19,15 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isGuest, setIsGuest] = useState(false);
+  const { user, loading } = useAuth();
 
-  // Check if user should have access to the main app
-  const hasAccess = isAuthenticated || isGuest;
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -34,46 +36,34 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <div className="min-h-screen flex flex-col">
-            {!hasAccess ? (
-              // Show landing page with login/signup options
+            <Navbar isAuthenticated={!!user} />
+            <main className="flex-1">
               <Routes>
+                <Route path="/" element={<Index />} />
+                <Route 
+                  path="/auth" 
+                  element={user ? <Navigate to="/" replace /> : <Auth />} 
+                />
                 <Route 
                   path="/login" 
-                  element={<Login onLogin={() => setIsAuthenticated(true)} />} 
+                  element={<Navigate to="/auth" replace />} 
                 />
                 <Route 
                   path="/signup" 
-                  element={<Signup onSignup={() => setIsAuthenticated(true)} />} 
+                  element={<Navigate to="/auth" replace />} 
                 />
                 <Route 
-                  path="*" 
-                  element={
-                    <LandingPage 
-                      onGuestAccess={() => setIsGuest(true)}
-                    />
-                  } 
+                  path="/dashboard" 
+                  element={user ? <Dashboard /> : <Navigate to="/auth" replace />} 
                 />
+                <Route path="/list-item" element={<ListItem />} />
+                <Route path="/rentals" element={<BrowseRentals />} />
+                <Route path="/item/:id" element={<ItemDetail />} />
+                <Route path="/contact/:ownerId" element={<ContactOwner />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
-            ) : (
-              // Show main app
-              <>
-                <Navbar isAuthenticated={isAuthenticated} />
-                <main className="flex-1">
-                  <Routes>
-                    <Route path="/" element={<Index />} />
-                    <Route path="/login" element={<Navigate to="/" replace />} />
-                    <Route path="/signup" element={<Navigate to="/" replace />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/list-item" element={<ListItem />} />
-                    <Route path="/rentals" element={<BrowseRentals />} />
-                    <Route path="/item/:id" element={<ItemDetail />} />
-                    <Route path="/contact/:ownerId" element={<ContactOwner />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </main>
-                <Footer />
-              </>
-            )}
+            </main>
+            <Footer />
           </div>
         </BrowserRouter>
       </TooltipProvider>
