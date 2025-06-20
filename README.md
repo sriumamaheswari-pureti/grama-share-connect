@@ -120,12 +120,6 @@ Mobile Optimization: Responsive design prioritizing mobile users
 Fast Loading: Optimized performance for rural internet connections
 Accessibility: WCAG compliant design for inclusive access
 
-Visual Design
-Rural-friendly Aesthetics: Green and earth tone color palette
-Clear Typography: Readable fonts optimized for all devices
-Intuitive Icons: Universal symbols for easy navigation
-Consistent Layout: Predictable interface patterns
-
 🔒 Security Features
 Authentication: Secure email-based user authentication
 Data Protection: Row-level security in database
@@ -151,21 +145,6 @@ Vercel: Connect your GitHub repository for automatic deployments
 Netlify: Drag and drop build folder for instant hosting
 Firebase Hosting: Google's hosting platform with global CDN
 
-🤝 Contributing
-We welcome contributions to improve AgriRent! Here's how you can help:
-1.Fork the repository
-2.Create a feature branch: git checkout -b feature/amazing-feature
-3.Commit your changes: git commit -m 'Add amazing feature'
-4.Push to the branch: git push origin feature/amazing-feature
-5.Open a Pull Request
 
-Development Guidelines
-Follow TypeScript best practices
-Maintain responsive design principles
-Write clear, descriptive commit messages
-Test thoroughly on mobile devices
-
-📄 License
-This project is open source and available under the MIT License.
 Built with ❤️ for farmers and agricultural communities
-Empowering agriculture through technology
+
