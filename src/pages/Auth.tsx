@@ -157,7 +157,7 @@ const Auth = () => {
                       <Label htmlFor="signup-firstName">First Name</Label>
                       <Input
                         id="signup-firstName"
-                        placeholder="John"
+                        placeholder="Enter your name"
                         value={signupData.firstName}
                         onChange={(e) => setSignupData(prev => ({ ...prev, firstName: e.target.value }))}
                         required
@@ -167,7 +167,7 @@ const Auth = () => {
                       <Label htmlFor="signup-lastName">Last Name</Label>
                       <Input
                         id="signup-lastName"
-                        placeholder="Doe"
+                        placeholder="Enter your name"
                         value={signupData.lastName}
                         onChange={(e) => setSignupData(prev => ({ ...prev, lastName: e.target.value }))}
                         required
@@ -180,7 +180,7 @@ const Auth = () => {
                     <Input
                       id="signup-email"
                       type="email"
-                      placeholder="john@example.com"
+                      placeholder="Enter your email"
                       value={signupData.email}
                       onChange={(e) => setSignupData(prev => ({ ...prev, email: e.target.value }))}
                       required
