@@ -29,6 +29,29 @@ const App = () => {
     );
   }
 
+  // If user is not authenticated, redirect to auth page
+  if (!user) {
+    return (
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <div className="min-h-screen flex flex-col">
+              <main className="flex-1">
+                <Routes>
+                  <Route path="/auth" element={<Auth />} />
+                  <Route path="*" element={<Navigate to="/auth" replace />} />
+                </Routes>
+              </main>
+            </div>
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    );
+  }
+
+  // If user is authenticated, show full app
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -40,22 +63,10 @@ const App = () => {
             <main className="flex-1">
               <Routes>
                 <Route path="/" element={<Index />} />
-                <Route 
-                  path="/auth" 
-                  element={user ? <Navigate to="/" replace /> : <Auth />} 
-                />
-                <Route 
-                  path="/login" 
-                  element={<Navigate to="/auth" replace />} 
-                />
-                <Route 
-                  path="/signup" 
-                  element={<Navigate to="/auth" replace />} 
-                />
-                <Route 
-                  path="/dashboard" 
-                  element={user ? <Dashboard /> : <Navigate to="/auth" replace />} 
-                />
+                <Route path="/auth" element={<Navigate to="/" replace />} />
+                <Route path="/login" element={<Navigate to="/auth" replace />} />
+                <Route path="/signup" element={<Navigate to="/auth" replace />} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/list-item" element={<ListItem />} />
                 <Route path="/rentals" element={<BrowseRentals />} />
                 <Route path="/item/:id" element={<ItemDetail />} />
